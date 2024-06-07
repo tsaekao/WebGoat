@@ -39,8 +39,10 @@ jobs:
         push: ${{ env.PUBLISH }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
+
   static_analysis:
     name: Static Analysis
+    needs: build
     runs-on: ubuntu-latest
     env:
         VERACODE_API_KEY_ID: ${{ secrets.VERACODE_API_ID }}
@@ -70,3 +72,7 @@ jobs:
 
       - name: Veracode CLI Static Scan
         run: ./veracode static scan veracode-artifact/*
+
+
+        
+  
